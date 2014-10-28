@@ -16,7 +16,7 @@ module Teaspoon::SpecHelper
   def javascript_include_tag_for_teaspoon(*sources)
     options = sources.extract_options!
     sources.collect do |source|
-      asset = defined?(lookup_asset_for_path) ? lookup_asset_for_path(source, type: :javascript) : asset_paths.asset_for(source, "js")
+      asset = defined?(lookup_asset_for_path) ? lookup_asset_for_path(source) : asset_paths.asset_for(source, "js")
       if asset.respond_to?(:logical_path)
         asset.to_a.map do |dep|
           javascript_include_tag(dep.pathname.to_s, src: asset_src(dep, options[:instrument]), type: "text/javascript").split("\n")
